@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 
 Fs = 44100
 duration = 5
-
 print("Recording...")
 audio = sd.rec(int(Fs * duration), samplerate=Fs, channels=1, dtype='float32')
 sd.wait()
@@ -12,21 +11,14 @@ print("Recording over!")
 
 audio = audio.flatten()
 
-def conv(x, h):
-    N, M = len(x), len(h)
-    y = np.zeros(N + M - 1)
-    for i in range(M):
-        y[i:i+N] += h[i] * x
-    return y
-
-autocorr = conv(audio, audio[::-1])
+# Auto-correlation using convolution
+autocorr = np.convolve(audio, audio[::-1], mode='full')
 
 plt.figure(figsize=(10, 6))
 plt.subplot(2, 1, 1)
-plt.plot(audio, color='black')
-plt.title("Original Speech Signal")
+plt.plot(audio, color='black'); plt.title("Original Speech Signal")
 plt.subplot(2, 1, 2)
-plt.plot(autocorr, color='purple')
-plt.title("Autocorrelation")
+plt.plot(autocorr, color='purple'); plt.title("Autocorrelation using np.convolve()")
 plt.tight_layout()
 plt.show()
+

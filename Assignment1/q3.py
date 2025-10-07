@@ -17,10 +17,10 @@ def conv_manual(x, h):
 
 Fs = 44100
 duration = 5
-print("Recording... Speak now!")
+print("Recording...")
 audio = sd.rec(int(Fs * duration), samplerate=Fs, channels=1, dtype='float32')
 sd.wait()
-print("Recording complete!")
+print("Recording over!")
 audio = audio.flatten()
 
 
@@ -32,13 +32,13 @@ cross_corr = conv_manual(audio, template[::-1])
 
 plt.figure(figsize=(10, 8))
 plt.subplot(3, 1, 1)
-plt.plot(audio)
+plt.plot(audio, color='black')
 plt.title("Original Speech Signal")
 plt.subplot(3, 1, 2)
-plt.plot(template)
+plt.plot(template, color='blue')
 plt.title("Template Signal")
 plt.subplot(3, 1, 3)
-plt.plot(cross_corr)
+plt.plot(cross_corr, color='green')
 plt.title("Cross-Correlation")
 plt.tight_layout()
 plt.show()

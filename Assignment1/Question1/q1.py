@@ -11,7 +11,7 @@ Fs = 44100
 print("Recording...")
 audio_data = sd.rec(int(duration * Fs), samplerate=Fs, channels=1, dtype='float32')
 sd.wait()
-print("Recording over.")
+print("Recording over!")
 
 # Flatten 
 audio_data = audio_data.flatten()
